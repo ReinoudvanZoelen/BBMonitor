@@ -4,6 +4,10 @@
  */
 
 
+/**
+ *
+ * @author Peter Boots
+ */
 public class BBMain {
 
     /**
