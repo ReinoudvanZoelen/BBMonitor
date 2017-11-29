@@ -10,6 +10,7 @@ public class Ball {
     private Color color;
     private int minCsX;
     private int maxCsX;
+    private boolean inZone = false;
 
     public Ball(int minX, int maxX, int minCsX, int maxCsX, int yPos, Color color) {
         this.xPos = minX;
@@ -27,6 +28,14 @@ public class Ball {
         if (xPos > maxX) {
             xPos = minX;
         }
+    }
+
+    public boolean getInZone() {
+        return inZone;
+    }
+
+    public void setInZone(boolean inZone) {
+        this.inZone = inZone;
     }
 
     public int getXPos() {
@@ -51,5 +60,13 @@ public class Ball {
     
     public boolean isLeavingCs() {
         return xPos == maxCsX;
+    }
+
+    public int getMaxCsX() {
+        return maxCsX;
+    }
+
+    public int getMinCsX() {
+        return minCsX;
     }
 }

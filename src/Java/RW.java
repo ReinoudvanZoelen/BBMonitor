@@ -66,9 +66,16 @@ public class RW {
     public void exitWriter() {
         monLock.lock();
         try {
+            System.out.println(writersActive);
             writersActive--;
+            if(writersActive < 0)
+            {
+                writersActive = 0;
+            }
             if (writersWaiting > 0 && writersActive == 0) okToWrite.signal();
             else okToRead.signalAll();
+
+
         }  finally {
             monLock.unlock();
         }

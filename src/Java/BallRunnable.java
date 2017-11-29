@@ -6,7 +6,6 @@ public class BallRunnable implements Runnable {
 
     private Ball ball;
     private RW rw;
-    private boolean inZone = false;
 
     public BallRunnable(Ball ball, RW rw) {
         this.ball = ball;
@@ -19,32 +18,38 @@ public class BallRunnable implements Runnable {
             try {
                 ball.move();
                 if(ball.getColor() == Color.RED) {
+                    if(ball.getXPos() > ball.getMinCsX() && ball.getXPos() < ball.getMaxCsX()){
+                        ball.setInZone(true);
+                    }
+
                     if(ball.isEnteringCs()) {
                         rw.enterReader();
-                        inZone = true;
                     }
                     if(ball.isLeavingCs()) {
                         rw.exitReader();
-                        inZone = false;
+                        ball.setInZone(false);
                     }
                 }
                 if(ball.getColor() == Color.BLUE) {
+                    if(ball.getXPos() > ball.getMinCsX() && ball.getXPos() < ball.getMaxCsX()){
+                        ball.setInZone(true);
+                    }
+
                     if(ball.isEnteringCs()) {
                         rw.enterWriter();
-                        inZone = true;
                     }
                     if(ball.isLeavingCs()) {
                         rw.exitWriter();
-                        inZone = false;
+                        ball.setInZone(false);
                     }
                 }
                 Thread.sleep(ball.getSpeed());
 
             } catch (InterruptedException ex) {
-                if(ball.getColor() == Color.RED && inZone) {
+                if(ball.getColor() == Color.RED && ball.getInZone()) {
                     rw.exitReader();
                 }
-                if(ball.getColor() == Color.BLUE && inZone) {
+                if(ball.getColor() == Color.BLUE && ball.getInZone()) {
                     rw.exitWriter();
                 }
                 Thread.currentThread().interrupt();
