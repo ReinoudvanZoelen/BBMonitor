@@ -1,3 +1,5 @@
+package Java;
+
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
@@ -27,6 +29,8 @@ public class MovingBallsFX extends Application {
     private int radius = 10;
     private int minCsX = (maxX + minX) / 2 - 100;
     private int maxCsX = (maxX + minX) / 2 + 100;
+
+    private RW rw = new RW();
 
     @Override
     public void start(Stage primaryStage) {
@@ -103,7 +107,7 @@ public class MovingBallsFX extends Application {
             // Reader selected: new red ball
             Ball b = new Ball(minX, maxX, minCsX, maxCsX, y, Color.RED);
             ballArray[index] = b;
-            Thread t = new Thread(new BallRunnable(b));
+            Thread t = new Thread(new BallRunnable(b, rw));
             threadArray[index] = t;
             circleArray[index].setVisible(true);
             t.start();
@@ -111,7 +115,7 @@ public class MovingBallsFX extends Application {
             // Writer selected: new blue ball
             Ball b = new Ball(minX, maxX, minCsX, maxCsX, y, Color.BLUE);
             ballArray[index] = b;
-            Thread t = new Thread(new BallRunnable(b));
+            Thread t = new Thread(new BallRunnable(b, rw));
             threadArray[index] = t;
             circleArray[index].setVisible(true);
             t.start();

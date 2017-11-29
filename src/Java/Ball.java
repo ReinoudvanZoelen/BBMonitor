@@ -1,3 +1,5 @@
+package Java;
+
 import java.util.Random;
 import javafx.scene.paint.Color;
 
